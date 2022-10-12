@@ -49,7 +49,7 @@ public class Task1_2_3 {
 
         try {
             if (foxtrotFreight.validate(foxtrotFreight.getReport())) {
-                System.out.printf("validation finished successfully");
+                System.out.printf("check completed successfully");
             }
         } catch (final NoManufacturerException | NoNameException | WrongBuyingPriceException |
                        WrongSellingPriceException | WrongAmountException err)

@@ -3,19 +3,22 @@ package Task4;
 import Task4.Multithreading.RunnableCalc;
 import Task4.Multithreading.CalcThread;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Task4 {
     public static void main(String[] args) {
         CalcThread thread1 = new CalcThread(3,  400, "1 Thread");
         CalcThread thread2 = new CalcThread(5, 40, "2 Thread");
-        RunnableCalc runnable1 = new RunnableCalc(6, 500, "1 Runnable");
-        RunnableCalc runnable2 = new RunnableCalc(9, 5000, "2 Runnable");
+        Runnable runnable1 = new RunnableCalc(6, 500, "1 Runnable");
+        Runnable runnable2 = new RunnableCalc(9, 2000, "2 Runnable");
 
-        Thread threadRunnable1 = new Thread(runnable1);
-        Thread threadRunnable2 = new Thread(runnable2);
         thread1.start();
         thread2.start();
-        threadRunnable1.start();
-        threadRunnable2.start();
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        executorService.execute(runnable1);
+        executorService.execute(runnable2);
 
         try {
             Thread.sleep(2000);
@@ -24,7 +27,6 @@ public class Task4 {
         }
         thread1.stopThread();
         thread2.stopThread();
-        runnable1.stopThread();
-        runnable2.stopThread();
+        executorService.shutdown();
     }
 }
